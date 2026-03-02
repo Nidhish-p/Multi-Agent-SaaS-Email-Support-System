@@ -1,0 +1,24 @@
+from pydantic import BaseModel, Field
+from typing import List, Annotated
+from typing_extensions import TypedDict
+from langgraph.graph.message import add_messages
+
+class Email(BaseModel):
+    id: str = Field(..., description="UID of the email")
+    threadId: str = Field(..., description="Thread id of the email")
+    messageId: str = Field(..., description="Message id of the email")
+    references: str = Field(..., description="References of the email")
+    sender: str = Field(..., description="Email address of the sender")
+    subject: str = Field(..., description="Subject line of the email")
+    body: str = Field(..., description="Body of the email")
+    
+class GraphState(TypedDict):
+    emails: List[Email]
+    current_email: Email
+    email_category: str
+    generated_email: str
+    rag_queries: List[str]
+    retrieved_docs: str
+    writer_messages: Annotated[list, add_messages]
+    sendable: bool
+    attempts: int
