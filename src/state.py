@@ -15,10 +15,10 @@ class Email(BaseModel):
 class GraphState(TypedDict):
     emails: List[Email]
     current_email: Email
-    email_category: str
+    category: str
+    tone: str
     generated_email: str
-    rag_queries: List[str]
-    retrieved_docs: str
+    grounded_response: str
     writer_messages: Annotated[list, add_messages]
-    sendable: bool
+    send: bool
     attempts: int

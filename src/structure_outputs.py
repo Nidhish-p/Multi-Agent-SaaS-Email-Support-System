@@ -2,17 +2,14 @@ from pydantic import BaseModel, Field
 from typing import List
 
 # Email classification output
-class EmailCategoryOutput(BaseModel):
+class EmailCategoryToneOutput(BaseModel):
     category: str = Field(
         ...,
         description="Must be one of: feature_query, pricing_upgrade, downgrade_cancellation, onboarding_help, technical_support,other."
     )
-
-# RAG query output
-class RAGQueriesOutput(BaseModel):
-    queries: List[str] = Field(
+    tone: str = Field(
         ...,
-        description="List of up to three questions/queries representing the customer's request."
+        description="Must be one of: neutral_inquiry, potential_buyer, frustrated, urgent, churn_signal, confused"
     )
 
 # Email writer output
