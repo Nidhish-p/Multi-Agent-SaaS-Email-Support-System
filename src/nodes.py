@@ -13,16 +13,13 @@ class Nodes:
         emails = [Email(**email) for email in recent_emails]
         return {"emails": emails}
 
-    def check_new_emails(self,graphstate) -> str:
+    def is_email_box_empty(self,graphstate) -> str:
         if len(graphstate['emails']) == 0:
             print("No new emails!!")
             return "empty"
         else:
             print("New emails to process.")
             return "process"
-        
-    def is_email_inbox_empty(self,graphstate) -> GraphState:
-        return graphstate
 
     def categorize_email(self,graphstate) -> GraphState:
         """Categorizes the current email using the categorize_email agent."""
@@ -41,7 +38,7 @@ class Nodes:
     def route_email_based_on_category(self,graphstate) -> str:
         """Routes the email based on its category."""
         print("Routing email based on category...\n")
-        category =graphstate["email_category"]
+        category =graphstate["category"]
         if category == "product_enquiry":
             return "product related"
         elif category == "other":
@@ -93,7 +90,7 @@ class Nodes:
             "email":graphstate["current_email"].body,
             "category": graphstate["category"],
             "tone": graphstate["tone"],
-            "grounded_response": graphstate["graphstate"],
+            "grounded_response": graphstate["grounded_response"],
             "generated_email":graphstate["generated_email"],
         })
 
@@ -127,14 +124,14 @@ class Nodes:
         print("Creating draft email...\n")
         self.gmail_tools.create_draft_reply(graphstate["current_email"],graphstate["generated_email"])
         
-        return {"retrieved_documents": "", "attempts": 0}
+        return {"attempts": 0}
 
     def send_email_response(self,graphstate) -> GraphState:
         """Sends the email response directly using Gmail."""
         print("Sending email...\n")
         self.gmail_tools.send_reply(graphstate["current_email"],graphstate["generated_email"])
         
-        return {"retrieved_documents": "", "attempts": 0}
+        return {"attempts": 0}
     
     def skip_unrelated_email(self,graphstate):
         """Skip unrelated email and remove from emails list."""
