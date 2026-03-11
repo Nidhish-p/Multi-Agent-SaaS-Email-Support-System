@@ -5,7 +5,7 @@ from langchain_chroma import Chroma
 from langchain_core.runnables import RunnablePassthrough
 from langchain_core.output_parsers import StrOutputParser
 from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
-from .structure_outputs import *
+from .structured_agent_outputs import *
 from .prompts import *
 
 class Agents():

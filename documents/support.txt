@@ -1,0 +1,103 @@
+# DEMO FILE - For development and testing purposes only. Replace with real content before production.
+
+**[Platform]: Onboarding & Technical Support**
+
+---
+
+**Getting Started**
+
+**Step 1 — Create Your Account**
+Sign up at [platform.com] using your email or Google account. Verify your email to activate your account. Free plan users are activated instantly with no credit card required.
+
+**Step 2 — Connect Your API Key**
+[Platform] requires an OpenAI API key to power your agents on OpenAI models:
+1. Log in to platform.openai.com and navigate to API Keys
+2. Generate a new secret key and copy it
+3. In [Platform], go to Settings → Integrations → OpenAI and paste your key
+4. Click Verify to confirm the connection
+
+For other models (Claude, Gemini, Mistral), follow the same process under their respective integration tabs.
+
+**Step 3 — Create Your First Agent**
+1. From the dashboard, click New Agent
+2. Choose a template or start from scratch
+3. Select your foundational model
+4. Write or generate your system prompt
+5. Optionally attach a knowledge base for RAG
+6. Click Deploy to make your agent live
+
+**Step 4 — Test Your Agent**
+Use the built-in chat playground to test your agent before sharing it with clients. You can simulate user messages and inspect how the agent responds.
+
+---
+
+**Setting Up Integrations**
+
+**Bland.ai Voice Calling**
+1. Create an account at bland.ai and retrieve your API key
+2. In [Platform], go to Tools → Voice → Bland.ai
+3. Paste your Bland.ai API key and configure your inbound/outbound settings
+4. Assign the voice tool to your agent under Tools in the agent editor
+
+**Custom API Tools**
+1. Navigate to Tools → Custom Tools → New Tool
+2. Define the tool name, description, and endpoint URL
+3. Set authentication headers if required (Bearer token, API key, etc.)
+4. Map input parameters and expected response fields
+5. Test the tool using the built-in tool tester before attaching to an agent
+
+**CRM & Helpdesk Integrations**
+Native integrations are available for HubSpot, Salesforce, Zendesk, and Intercom under Settings → Integrations. OAuth-based setup takes under 2 minutes.
+
+---
+
+**Setting Up RAG (Knowledge Base)**
+1. Go to Knowledge Bases → New Knowledge Base
+2. Upload your files (PDF, TXT, DOCX, CSV supported, max 50MB per file)
+3. [Platform] will automatically chunk, embed, and index your content (usually takes 1–3 minutes)
+4. Attach the knowledge base to your agent under the RAG tab in the agent editor
+5. Set retrieval settings: number of chunks (k), similarity threshold, and reranking preference
+
+---
+
+**Common Technical Issues**
+
+**API Key Not Connecting**
+- Ensure there are no leading or trailing spaces when pasting the key
+- Confirm the key has not expired or been revoked in your OpenAI dashboard
+- Check that your OpenAI account has billing enabled and sufficient credits
+- If the issue persists, generate a new API key and re-enter it in [Platform]
+
+**Agent Not Responding or Timing Out**
+- Check your API key usage limits in your model provider's dashboard
+- Ensure your system prompt is not excessively long (keep under 2,000 tokens recommended)
+- If using RAG, verify your knowledge base has finished indexing (status shows "Ready")
+- Try switching to a faster model (e.g., GPT-3.5 Turbo) for debugging
+
+**Knowledge Base Not Returning Relevant Results**
+- Ensure uploaded documents are clean text (scanned PDFs with no OCR may not index well)
+- Try increasing the retrieval k value (e.g., from 3 to 5) in RAG settings
+- Re-upload the document if indexing appears stuck (status stays "Processing" over 10 minutes)
+
+**Login Issues**
+- Use the Forgot Password link on the login page to reset your credentials
+- If using Google login, ensure you're signing in with the same Google account used during signup
+- Clear browser cache and cookies if the login page fails to load
+- For SSO or team account login issues, contact support@[platform.com]
+
+**Integration Failures (Bland.ai, CRM, Custom Tools)**
+- Re-verify your API key or OAuth token has not expired
+- Check that the third-party service is not experiencing an outage
+- Review the error logs under Tools → Logs for specific failure messages
+- Ensure your [Platform] plan supports the integration you are trying to use (some are Pro/Premium only)
+
+**Billing or Charge Issues**
+- Review your invoice history under Settings → Billing → Invoices
+- For unexpected charges, contact support@[platform.com] with your account email and invoice ID
+
+---
+
+**Support Contacts**
+- General support: support@[platform.com]
+- Response times: Community (Free), 48hrs (Pro), 12hrs (Premium)
+- Status page for outages: status.[platform.com]

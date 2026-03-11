@@ -1,11 +1,13 @@
 from .agents import Agents
 from .tools.gmail_manager import GmailManager
 from .state import GraphState, Email
+from .spam import SpamClassifier
 
 class Nodes:
     def __init__(self):
         self.agents = Agents()
         self.gmail_tools = GmailManager()
+        self.spam_classifier = SpamClassifier()
 
     def load_new_emails(self,graphstate) -> GraphState:
         print("Loading new emails...\n" )
@@ -19,6 +21,16 @@ class Nodes:
             return "empty"
         else:
             print("New emails to process.")
+            return "process"
+    
+    def is_email_spam(self,graphstate):
+        email = graphstate["emails"][-1]
+        is_spam = self.spam_classifier.check(email)
+        if is_spam:
+            print("Email is spam!! \n")
+            graphstate["emails"].pop()
+            return "spam"
+        else:
             return "process"
 
     def categorize_email(self,graphstate) -> GraphState:
@@ -39,11 +51,11 @@ class Nodes:
         """Routes the email based on its category."""
         print("Routing email based on category...\n")
         category =graphstate["category"]
-        if category == "product_enquiry":
+        if category in ["feature_query","pricing_upgrade","onboarding_help","technical_support"]:
             return "product related"
-        elif category == "other":
-            return "other"
-        else:
+        elif category == "downgrade_cancellation":
+            return "downgrade"
+        elif category == "unrelated":
             return "not product related"
 
     def get_grounded_response_from_rag(self,graphstate) -> GraphState:
@@ -57,12 +69,12 @@ class Nodes:
     def write_draft_email(self,graphstate) -> GraphState:
         """Writes a draft email based on the current email and retrieved information."""
         print("Writing draft email...\n")
-
+        grounded = graphstate.get("grounded_response", "")
         inputs = (
             f'# EMAIL CATEGORY: {graphstate["category"]}\n\n'
             f'# EMAIL TONE: {graphstate["tone"]}\n\n'
             f'# EMAIL CONTENT: \n{graphstate["current_email"].body}\n\n'
-            f'# GROUNDED RESPONSE: \n{graphstate["grounded_response"]}' 
+            f'# GROUNDED RESPONSE: \n{grounded}' 
         )
         
         writer_messages = graphstate.get('writer_messages', [])

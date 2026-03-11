@@ -1,0 +1,77 @@
+# DEMO FILE - For development and testing purposes only. Replace with real content before production.
+
+**[Platform]: Pricing & Plans**
+
+---
+
+**Overview**
+
+[Platform] offers three plans designed to scale with your agency. All plans include access to the core platform. You can upgrade, downgrade, or cancel at any time from your account dashboard.
+
+---
+
+**Plans**
+
+**Free Plan — $0/month**
+Best for individuals exploring the platform or just getting started.
+- Foundational model selection (OpenAI models only)
+- Template prompting
+- Limited versioning (up to 3 versions per agent)
+- Train with sample data (no custom uploads)
+- 1 active agent
+- Community support only
+
+**Pro Plan — $49/month**
+Best for growing agencies managing multiple clients.
+- Everything in the Free plan
+- All foundational models including open-source and third-party
+- Advanced tooling integration (custom tools + Bland.ai voice)
+- Prompt improvement system
+- Enhanced versioning (unlimited versions)
+- Train with custom data (up to 5 knowledge bases)
+- Up to 10 active agents
+- Email support with 48-hour response time
+
+**Premium Plan — $99/month**
+Best for established agencies with high-volume needs.
+- Everything in the Pro plan
+- Priority support with 12-hour response time
+- Exclusive and early-access templates
+- Custom tooling integration with dedicated setup assistance
+- Unlimited knowledge bases
+- Unlimited active agents
+- Dedicated account manager
+- Custom onboarding session
+
+---
+
+**Billing FAQs**
+
+**How am I billed?**
+All plans are billed monthly. Annual billing with a 20% discount is available on Pro and Premium plans.
+
+**Can I upgrade mid-cycle?**
+Yes. When you upgrade, you are charged the prorated difference immediately and your new features are activated instantly.
+
+**Can I add more seats?**
+Team seats are available on Pro and Premium plans. Each additional seat is $15/month on Pro and $20/month on Premium.
+
+**What payment methods are accepted?**
+[Platform] accepts all major credit and debit cards (Visa, Mastercard, Amex) as well as PayPal.
+
+**Is there a free trial for paid plans?**
+Yes. Pro and Premium plans include a 7-day free trial. No credit card required to start.
+
+**What happens when I hit my agent limit on the Free plan?**
+You will be prompted to upgrade to Pro. Existing agents remain active but you cannot create new ones until you upgrade.
+
+**Are there refunds?**
+[Platform] offers a 14-day money-back guarantee on your first paid subscription. Contact support@[platform.com] to request a refund.
+
+---
+
+**How to Upgrade**
+1. Log in to your [Platform] dashboard
+2. Navigate to Settings → Billing
+3. Select your desired plan and confirm
+4. Your new features are available immediately

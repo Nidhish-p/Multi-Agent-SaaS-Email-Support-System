@@ -1,0 +1,74 @@
+# DEMO FILE - For development and testing purposes only. Replace with real content before production.
+
+**[Platform]: Product Features & Functionality**
+
+---
+
+**Overview**
+
+[Platform] is a comprehensive AI agent creation and deployment platform built specifically for AI Automation Agency owners. It provides everything needed to build, manage, and deliver AI solutions to clients — from model selection to deployment — all in one place.
+
+---
+
+**Core Features**
+
+**Foundational Model Selection**
+[Platform] supports a wide range of foundational models, giving you complete flexibility to choose the best fit for your use case:
+- OpenAI models: GPT-4, GPT-4 Turbo, GPT-3.5 Turbo
+- Open-source models: Llama 3, Mistral
+- Third-party models: Anthropic Claude, Google Gemini Pro
+You can switch models at any time without rebuilding your agent from scratch.
+
+**Tooling & Actions**
+[Platform] allows your agents to perform real-world actions through integrations:
+- Voice calling via Bland.ai — agents can make and receive calls
+- Custom tool integration — bring your own tools via API
+- Platform connectors — interact with CRMs, helpdesks, and other third-party systems
+- Web search and data retrieval capabilities
+
+**Prompt Engineering**
+- Templated prompts using the latest industry best practices
+- Prompt improvement system that suggests optimizations based on your agent's goals
+- Version-controlled prompt history so you can roll back anytime
+- Support for system prompts, few-shot examples, and dynamic variables
+
+**Zero Downtime Versioning**
+[Platform] is the only platform that lets you update your agents offline and push changes live seamlessly:
+- Test changes in a staging environment before going live
+- Instantly roll back to a previous version if needed
+- No service interruption for your clients during updates
+
+**RAG — Train with Your Own Data**
+Retrieval Augmented Generation (RAG) allows your agents to answer questions grounded in your own documents:
+- Upload PDFs, text files, CSVs, and web content
+- Automatic chunking, embedding, and indexing
+- Agents retrieve relevant context before generating responses
+- Supports multiple knowledge bases per agent
+
+**Templates**
+- Pre-built agent templates for industries including customer support, sales, legal, and HR
+- Fully customizable starting points to reduce development time
+- New templates added monthly by the [Platform] team
+
+---
+
+**How [Platform] Compares**
+
+| Feature | [Platform] | OpenAI Playground | Custom Build |
+|---|---|---|---|
+| Multi-model support | Yes | OpenAI only | Depends |
+| RAG / custom data | Yes | Limited | Yes |
+| Zero downtime versioning | Yes | No | No |
+| Agency-specific templates | Yes | No | No |
+| Voice calling | Yes | No | Custom |
+| No-code interface | Yes | Partial | No |
+
+---
+
+**What Can You Build with [Platform]?**
+- Customer service chatbots for client websites
+- Internal knowledge base assistants
+- Lead qualification and sales agents
+- Appointment booking agents
+- Voice-based support agents
+- Onboarding and HR assistants
