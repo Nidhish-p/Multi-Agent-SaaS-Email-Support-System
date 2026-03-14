@@ -4,7 +4,7 @@
 
 A production-grade, fully automated email support pipeline built for SaaS companies — powered by a multi-agent LangGraph architecture, RAG-based knowledge retrieval, and a trained ML spam classifier. The system reads incoming customer emails, filters spam, classifies intent, retrieves grounded product knowledge, and drafts tone-aware replies — entirely without human intervention.
 
-> **Successor to:** [Email Spam Classifier]([https://github.com/Nidhish-p/Email-Spam-Classifier]) — spam detection is now a native intelligence layer within a larger orchestration system.
+> **Successor to:** [Email Spam Classifier](https://github.com/Nidhish-p/Email-Spam-Classifier) — spam detection is now a native intelligence layer within a larger orchestration system.
 
 ---
 
