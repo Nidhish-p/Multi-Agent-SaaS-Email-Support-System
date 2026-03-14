@@ -1,5 +1,5 @@
 from langchain_core.prompts import ChatPromptTemplate, PromptTemplate
-from langchain_google_genai import ChatGoogleGenerativeAI, GoogleGenerativeAIEmbeddings
+from langchain_google_genai import GoogleGenerativeAIEmbeddings
 from langchain_groq import ChatGroq
 from langchain_chroma import Chroma
 from langchain_core.runnables import RunnablePassthrough
@@ -7,17 +7,18 @@ from langchain_core.output_parsers import StrOutputParser
 from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
 from .structured_agent_outputs import *
 from .prompts import *
+from langchain_community.vectorstores import FAISS
+
+from dotenv import load_dotenv
 
 class Agents():
     def __init__(self):
-        llama = ChatGroq(model_name="llama-3.3-70b-versatile", temperature=0.1) # deterministic temperature setting
-        # gemini = ChatGoogleGenerativeAI(model="gemini-1.5-flash", temperature=0.1)
+        load_dotenv()
+        llama = ChatGroq(model_name="llama-3.3-70b-versatile", temperature=0.1)
         
-        embeddings = GoogleGenerativeAIEmbeddings(model="models/text-embedding-004")
-        vectorstore = Chroma(persist_directory="db", embedding_function=embeddings)
+        embeddings = GoogleGenerativeAIEmbeddings(model="models/gemini-embedding-001")
+        vectorstore = FAISS.load_local("db", embeddings, allow_dangerous_deserialization=True)
         retriever = vectorstore.as_retriever(search_kwargs={"k": 3})
-
-        # Categorize email chain
         email_category_prompt = PromptTemplate(
             template=CATEGORIZE_EMAIL_PROMPT, 
             input_variables=["email"]
@@ -27,19 +28,17 @@ class Agents():
             llama.with_structured_output(EmailCategoryToneOutput)
         )
         
-        # Generate grounded response using RAG
         qa_prompt = PromptTemplate(
             template=GENERATE_RAG_ANSWER_PROMPT, 
-            input_variables=["email"]
+            input_variables=["email", "context"]
         )
         self.generate_rag_answer = (
-            {"context": retriever}
+            {"context": retriever, "email": RunnablePassthrough()}
             | qa_prompt
             | llama
             | StrOutputParser()
         )
 
-        # Used to write a draft email based on category,tone and related information
         writer_prompt = ChatPromptTemplate.from_messages(
             [
                 ("system", EMAIL_WRITER_PROMPT),
@@ -52,7 +51,6 @@ class Agents():
             llama.with_structured_output(WriterOutput)
         )
 
-        # Verify the generated email using proofreader
         proofreader_prompt = PromptTemplate(
             template=EMAIL_PROOFREADER_PROMPT, 
             input_variables=["email", "generated_email"]
@@ -61,5 +59,3 @@ class Agents():
             proofreader_prompt | 
             llama.with_structured_output(ProofReaderOutput) 
         )
-
-        

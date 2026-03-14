@@ -15,29 +15,30 @@ class Nodes:
         emails = [Email(**email) for email in recent_emails]
         return {"emails": emails}
 
-    def is_email_box_empty(self,graphstate) -> str:
+    def is_email_box_empty(self,graphstate) -> GraphState:
         if len(graphstate['emails']) == 0:
             print("No new emails!!")
-            return "empty"
+            return {"status": "empty"}
         else:
             print("New emails to process.")
-            return "process"
+            return {"status": "process"}
     
-    def is_email_spam(self,graphstate):
+    def is_email_spam(self,graphstate) -> GraphState:
         email = graphstate["emails"][-1]
-        is_spam = self.spam_classifier.check(email)
+        is_spam = self.spam_classifier.check(email.body)
         if is_spam:
             print("Email is spam!! \n")
             graphstate["emails"].pop()
-            return "spam"
+            return {"is_spam": "spam"}
         else:
-            return "process"
+            return {"is_spam": "process"}
 
     def categorize_email(self,graphstate) -> GraphState:
         """Categorizes the current email using the categorize_email agent."""
         print("Checking email category...\n")
         
         current_email =graphstate["emails"][-1]
+        print("current mail body:",current_email.body[:100])
         result = self.agents.categorize_email.invoke({"email": current_email.body})
         print(f"Email category: {result.category}")
         
@@ -58,11 +59,18 @@ class Nodes:
         elif category == "unrelated":
             return "not product related"
 
-    def get_grounded_response_from_rag(self,graphstate) -> GraphState:
-        """Retrieves information from internal knowledge based on RAG questions."""
+    def get_grounded_response_from_rag(self, graphstate) -> GraphState:
         print("Retrieving information from internal knowledge...\n")
+        
         current_email = graphstate["current_email"]
-        grounded_response = self.agents.generate_rag_answer.invoke(current_email)
+        print(f"Email body: {current_email.body[:100]}")  # confirm body is a string
+        
+        print("Invoking RAG chain...")
+        grounded_response = self.agents.generate_rag_answer.invoke(current_email.body)
+        print(f"RAG chain returned: {grounded_response}")
+        
+        if not grounded_response:
+            print("No response.")
         
         return {"grounded_response": grounded_response}
 

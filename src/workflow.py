@@ -2,6 +2,12 @@ from langgraph.graph import END, StateGraph
 from .state import GraphState
 from .nodes import Nodes
 
+def route_email_box(graphstate):
+    return graphstate["status"]
+
+def route_spam(graphstate):
+    return graphstate["is_spam"]
+
 class Workflow():
     def __init__(self):
         # initialize graph state and nodes
@@ -26,7 +32,7 @@ class Workflow():
         workflow.add_edge("load_new_emails", "is_email_box_empty")
         workflow.add_conditional_edges(
             "is_email_box_empty",
-            nodes.is_email_box_empty,
+            route_email_box,
             {
                 "process": "is_email_spam",
                 "empty": END
@@ -36,7 +42,7 @@ class Workflow():
         #check spam
         workflow.add_conditional_edges(
             "is_email_spam",
-            nodes.is_email_spam,
+            route_spam,
             {
                 "spam": "is_email_box_empty",
                 "process": "categorize_email"

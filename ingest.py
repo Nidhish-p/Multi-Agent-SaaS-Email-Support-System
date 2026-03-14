@@ -1,13 +1,12 @@
 from langchain_community.document_loaders import TextLoader
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_google_genai import ChatGoogleGenerativeAI, GoogleGenerativeAIEmbeddings
-from langchain_chroma import Chroma
+from langchain_community.vectorstores import FAISS
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.runnables import RunnablePassthrough
 from langchain_core.output_parsers import StrOutputParser
 from dotenv import load_dotenv
 
-# Load environment variables from a .env file
 load_dotenv()
 
 RAG_EMAIL_PROMPT_TEMPLATE = """
@@ -35,26 +34,28 @@ for file in files:
     chunks = doc_splitter.split_documents(docs)
     all_chunks.extend(chunks)
 
+print(f"Total chunks to embed: {len(all_chunks)}")
 print("Creating vector embeddings...")
-embeddings = GoogleGenerativeAIEmbeddings(model="models/text-embedding-004")
-vectorstore = Chroma.from_documents(all_chunks, embeddings, persist_directory="db")
 
-# Semantic vector search
+embeddings = GoogleGenerativeAIEmbeddings(model="models/gemini-embedding-001")
+
+vectorstore = FAISS.from_documents(all_chunks, embedding=embeddings)
+vectorstore.save_local("db")
+print("Vector store created successfully!")
+
 vectorstore_retriever = vectorstore.as_retriever(search_kwargs={"k": 3})
 
-# Test RAG chain
 print("Test RAG chain...")
 prompt = ChatPromptTemplate.from_template(RAG_EMAIL_PROMPT_TEMPLATE)
-llm = ChatGoogleGenerativeAI(model="gemini-1.5-flash", temperature=0.1)
+llm = ChatGoogleGenerativeAI(model="gemini-2.0-flash", temperature=0.1)
 
 rag_chain = (
-    {"context": vectorstore_retriever, "question": RunnablePassthrough()}
+    {"context": vectorstore_retriever, "email": RunnablePassthrough()}
     | prompt
     | llm
     | StrOutputParser()
 )
 
-#Demo customer email
 customer_email = """
 Hi,
 
@@ -68,6 +69,5 @@ Raghav
 """
 
 result = rag_chain.invoke(customer_email)
-print(f"Question: {customer_email}")
+print(f"Email: {customer_email}")
 print(f"Answer: {result}")
-

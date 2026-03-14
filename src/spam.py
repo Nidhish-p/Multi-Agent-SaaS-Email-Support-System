@@ -2,15 +2,22 @@ import joblib
 from nltk.corpus import stopwords
 import string
 from nltk.stem.porter import PorterStemmer
+import os
+from dotenv import load_dotenv
+import nltk
 
 # Load model and vectorizer
-model = joblib.load("models/spam_classifier.pkl")
-vectorizer = joblib.load("models/tfidf_vectorizer.pkl")
+load_dotenv()
 
 class SpamClassifier:
     def __init__(self):
-        self.model = model
-        self.vectorizer = vectorizer 
+        # self.model = joblib.load(os.getenv("MODEL_PATH"))
+        # self.vectorizer = joblib.load(os.getenv("VECTORIZER"))
+        model_path = os.getenv("MODEL_PATH")
+        vectorizer_path = os.getenv("VECTORIZER")
+        
+        self.model = joblib.load(model_path)
+        self.vectorizer = joblib.load(vectorizer_path)
 
     def _transform_text(self,text):
         text = text.lower()

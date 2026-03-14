@@ -12,7 +12,6 @@ from email.mime.multipart import MIMEMultipart
 
 SCOPES = ['https://www.googleapis.com/auth/gmail.modify']
 
-
 class GmailManager:
 
     # Initialize Gmail API service
@@ -42,7 +41,6 @@ class GmailManager:
         service = build("gmail", "v1", credentials=creds)
 
         return service
-
 
     # Fetch emails that don't already have a draft reply
     def fetch_unanswered_emails(self, max_results=50, hours=8):
@@ -156,20 +154,20 @@ class GmailManager:
     def _create_reply_message_body(self, email, reply_text):
 
         message = self._create_email_message(
-            email["sender"],
-            email["subject"],
+            email.sender,
+            email.subject,
             reply_text
         )
 
-        if email.get("messageId"):
-            message["In-Reply-To"] = email["messageId"]
-            message["References"] = email["messageId"]
+        if email.messageId:
+            message["In-Reply-To"] = email.messageId
+            message["References"] = email.messageId
 
         raw = base64.urlsafe_b64encode(message.as_bytes()).decode()
 
         body = {
             "raw": raw,
-            "threadId": email["threadId"]
+            "threadId": email.threadId
         }
 
         return body
